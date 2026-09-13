@@ -1,0 +1,6 @@
+{
+  "name": "Free Fire Hosting Dashboard",
+  "description": "Professional Free Fire daily tournament match hosting management dashboard with 49-match generator, live match tracking, dynamic counting, history, and earnings.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

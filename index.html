@@ -1,0 +1,349 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>Free Fire Hosting Dashboard</title>
+    <meta name="description" content="Professional Free Fire daily tournament match hosting management dashboard with 49-match generator, live match tracking, dynamic counting, history, and earnings." />
+    <meta property="og:title" content="Free Fire Hosting Dashboard" />
+    <meta property="og:description" content="Professional Free Fire daily tournament match hosting management dashboard with 49-match generator, live match tracking, dynamic counting, history, and earnings." />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="stylesheet" href="/src/style.css" />
+  </head>
+  <body>
+    <div class="app-container">
+      
+      <!-- Top Brand Header -->
+      <header class="app-header" id="main-header">
+        <div class="header-top">
+          <div class="brand-wrapper">
+            <div class="brand-icon">
+              <!-- Flame / Crosshair SVG -->
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"></path>
+              </svg>
+            </div>
+            <div class="brand-titles">
+              <h1>FREE FIRE HOSTING</h1>
+              <p>Tournament Management</p>
+            </div>
+          </div>
+          <div class="header-live-badge">
+            <span class="pulse-dot"></span> LIVE SYSTEM
+          </div>
+        </div>
+        <div class="header-time-bar">
+          <div><span class="clock-display" id="header-live-clock">10:00:00 AM</span></div>
+          <div class="rate-badge" id="header-rate-display">₹3 / Match</div>
+        </div>
+      </header>
+
+      <!-- Horizontal Scrollable Navigation Tabs (6 Pills) -->
+      <div class="nav-scroll-wrapper">
+        <nav class="nav-tabs" id="nav-tabs">
+          <button class="nav-tab-btn active" data-tab="tab-live" id="tab-btn-live">
+            <span>⚡ Live Dashboard</span>
+          </button>
+          <button class="nav-tab-btn" data-tab="tab-generator" id="tab-btn-generator">
+            <span>⚙ Match Generator</span>
+          </button>
+          <button class="nav-tab-btn" data-tab="tab-today" id="tab-btn-today">
+            <span>📋 Today's Matches</span>
+            <span class="nav-badge" id="badge-matches-remaining">49 left</span>
+          </button>
+          <button class="nav-tab-btn" data-tab="tab-history" id="tab-btn-history">
+            <span>🕒 Match History</span>
+            <span class="nav-badge" id="badge-history-count">0</span>
+          </button>
+          <button class="nav-tab-btn" data-tab="tab-payments" id="tab-btn-payments">
+            <span>💰 Payment History</span>
+          </button>
+          <button class="nav-tab-btn" data-tab="tab-settings" id="tab-btn-settings">
+            <span>🛠 Settings & Backup</span>
+          </button>
+        </nav>
+      </div>
+
+      <!-- ================= TAB 1: LIVE DASHBOARD ================= -->
+      <section class="tab-pane active" id="tab-live">
+        <!-- Time Travel / Fast Verification Simulator -->
+        <div class="sim-toolbar">
+          <div class="sim-header">
+            <span>⏱ Time Simulation (Test 5-Min Rule & Window)</span>
+          </div>
+          <div class="sim-pills">
+            <button class="sim-pill-btn" data-time="real">Real Time</button>
+            <button class="sim-pill-btn" data-time="10:00">10:00 AM (Start)</button>
+            <button class="sim-pill-btn" data-time="15:03">03:03 PM (Active 5m)</button>
+            <button class="sim-pill-btn" data-time="15:06">03:06 PM (Switch 3:15)</button>
+            <button class="sim-pill-btn" data-time="18:00">06:00 PM (Window)</button>
+            <button class="sim-pill-btn" data-time="22:00">10:00 PM (Final)</button>
+          </div>
+        </div>
+
+        <!-- Section 1: Current Match Focus -->
+        <div class="card current-match-hero" id="live-hero-match-box">
+          <!-- Dynamically populated -->
+        </div>
+
+        <!-- Section 2: Time-Based Match Window (-30m to +15m) -->
+        <div class="card">
+          <div class="card-title">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"></circle>
+              <polyline points="12 6 12 12 16 14"></polyline>
+            </svg>
+            Active Window (-30m to +15m)
+          </div>
+          <div class="window-matches-list" id="live-window-list">
+            <!-- Dynamically populated -->
+          </div>
+        </div>
+
+        <!-- Section 3: Today's Progress and Earnings -->
+        <div class="card">
+          <div class="card-title">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="12" y1="1" x2="12" y2="23"></line>
+              <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+            </svg>
+            Today's Progress & Earnings
+          </div>
+          
+          <div class="stats-grid">
+            <div class="stat-box">
+              <div class="stat-title">Today's Earnings</div>
+              <div class="stat-value highlight" id="stat-earnings-today">₹0</div>
+            </div>
+            <div class="stat-box">
+              <div class="stat-title">Current Week Total</div>
+              <div class="stat-value green" id="stat-earnings-week">₹0</div>
+            </div>
+            <div class="stat-box">
+              <div class="stat-title">Completed Today</div>
+              <div class="stat-value" id="stat-matches-done">0 / 49</div>
+            </div>
+            <div class="stat-box">
+              <div class="stat-title">Cancelled</div>
+              <div class="stat-value" style="color:#F87171;" id="stat-matches-cancelled">0 (₹0)</div>
+            </div>
+          </div>
+
+          <div style="margin-top: 14px;">
+            <div style="display:flex;justify-content:space-between;font-size:0.75rem;color:var(--text-muted);margin-bottom:4px;">
+              <span>Daily Completion (49 Matches Max)</span>
+              <span>10:00 AM – 10:00 PM</span>
+            </div>
+            <div class="progress-container">
+              <div class="progress-bar-done" id="progress-bar-completed" style="width: 0%;"></div>
+              <div class="progress-bar-cancel" id="progress-bar-cancelled" style="width: 0%;"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= TAB 2: DAILY MATCH GENERATOR ================= -->
+      <section class="tab-pane" id="tab-generator">
+        <div class="card">
+          <div class="card-title">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+              <polyline points="14 2 14 8 20 8"></polyline>
+              <line x1="16" y1="13" x2="8" y2="13"></line>
+              <line x1="16" y1="17" x2="8" y2="17"></line>
+            </svg>
+            Generate 49 Daily Matches
+          </div>
+          <p style="font-size:0.8rem;color:var(--text-muted);margin-bottom:14px;">
+            Schedule runs from 10:00 AM to 10:00 PM (15m intervals). 10:00 AM (+1 every 15 mins), 11:00 AM Block (Base, Base+12, Base+24, Base+36), 12:00 PM - 10:00 PM (+1 every HOUR per series).
+          </p>
+
+          <div class="generator-grid">
+            <div class="form-group">
+              <label class="form-label">Match Schedule Date</label>
+              <input type="date" class="form-input" id="gen-date" />
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">
+                <span>10:00 AM Match Number</span>
+                <span class="badge-auto">(+1 every 15 mins till 10:45)</span>
+              </label>
+              <input type="number" class="form-input" id="gen-10-00" placeholder="e.g. 336101" />
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">
+                <span>11:00 AM Match Number (Base)</span>
+                <span class="badge-auto">(Calculates 11:15, 11:30, 11:45)</span>
+              </label>
+              <input type="number" class="form-input" id="gen-11-00" placeholder="e.g. 336201" />
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">
+                <span>11:15 AM Match Number</span>
+                <span class="badge-auto" id="lbl-auto-11-15">(Auto: Base + 12)</span>
+              </label>
+              <input type="number" class="form-input" id="gen-11-15" placeholder="Optional Override" />
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">
+                <span>11:30 AM Match Number</span>
+                <span class="badge-auto" id="lbl-auto-11-30">(Auto: Base + 24)</span>
+              </label>
+              <input type="number" class="form-input" id="gen-11-30" placeholder="Optional Override" />
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">
+                <span>11:45 AM Match Number</span>
+                <span class="badge-auto" id="lbl-auto-11-45">(Auto: Base + 36)</span>
+              </label>
+              <input type="number" class="form-input" id="gen-11-45" placeholder="Optional Override" />
+            </div>
+
+            <div class="gen-btn-row">
+              <button class="btn-primary" id="btn-generate-schedule">Generate 49 Matches</button>
+              <button class="btn-secondary" id="btn-sample-fill">Sample Fill</button>
+              <button class="btn-secondary" id="btn-clear-gen" style="flex:0.6;">Clear</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= TAB 3: TODAY'S MATCHES ================= -->
+      <section class="tab-pane" id="tab-today">
+        <!-- Control Bar (Manual Count Override + Search + Filters) -->
+        <div class="control-bar">
+          <div class="override-row">
+            <span>Sequential Count Start / Override:</span>
+            <div class="override-input-group">
+              <input type="number" class="input-small" id="input-count-override" min="1" value="1" />
+              <button class="btn-small" id="btn-set-count">Apply</button>
+            </div>
+          </div>
+          <div class="search-filter-row">
+            <input type="text" class="search-input" id="input-match-search" placeholder="Search match number or time..." />
+            <select class="filter-select" id="select-match-filter">
+              <option value="all">All (49)</option>
+              <option value="upcoming">Upcoming</option>
+              <option value="completed">Completed</option>
+              <option value="cancelled">Cancelled</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- 49 Mobile Match Cards Container -->
+        <div id="today-matches-container" style="display:flex;flex-direction:column;gap:12px;">
+          <!-- Dynamically populated with Mobile Card UI -->
+        </div>
+      </section>
+
+      <!-- ================= TAB 4: MATCH HISTORY ================= -->
+      <section class="tab-pane" id="tab-history">
+        <div class="control-bar">
+          <div class="search-filter-row">
+            <input type="text" class="search-input" id="input-history-search" placeholder="Search history..." />
+            <select class="filter-select" id="select-history-filter">
+              <option value="all">All Records</option>
+              <option value="completed">Completed (Paid)</option>
+              <option value="cancelled">Cancelled (₹0)</option>
+            </select>
+          </div>
+        </div>
+
+        <div id="history-list-container" style="display:flex;flex-direction:column;gap:10px;">
+          <!-- Dynamically populated -->
+        </div>
+      </section>
+
+      <!-- ================= TAB 5: PAYMENT HISTORY ================= -->
+      <section class="tab-pane" id="tab-payments">
+        <div class="card" style="background:rgba(255,122,0,0.06);border-color:rgba(255,122,0,0.25);">
+          <div style="font-size:0.85rem;color:#FFF;font-weight:700;display:flex;align-items:center;gap:6px;">
+            <span>ℹ️ Monday Reset Rule</span>
+          </div>
+          <p style="font-size:0.75rem;color:var(--text-muted);margin-top:4px;">
+            Matches are auto-grouped into Monday–Sunday blocks. Every Monday 00:00 starts a fresh week at ₹0 while retaining full previous week records.
+          </p>
+        </div>
+
+        <div id="payment-blocks-container" style="display:flex;flex-direction:column;gap:14px;">
+          <!-- Dynamically populated weekly blocks -->
+        </div>
+      </section>
+
+      <!-- ================= TAB 6: SETTINGS & BACKUP ================= -->
+      <section class="tab-pane" id="tab-settings">
+        <div class="card">
+          <div class="card-title">Hosting Rates & Links</div>
+          <div class="settings-section">
+            <div class="setting-item">
+              <div>
+                <div class="setting-label-title">Rate Per Match (₹)</div>
+                <div class="setting-label-desc">Amount added when match is completed (Default: ₹3)</div>
+              </div>
+              <input type="number" class="input-small" id="setting-rate" min="1" value="3" style="width:75px;" />
+            </div>
+
+            <div class="setting-item" style="flex-direction:column;align-items:stretch;gap:6px;">
+              <div>
+                <div class="setting-label-title">IDP Link Base URL</div>
+                <div class="setting-label-desc">Opens: [BaseURL][MatchNumber]</div>
+              </div>
+              <input type="text" class="form-input" id="setting-idp-url" value="https://skillclash.site/admin2020/matches/edit/" />
+            </div>
+
+            <div class="setting-item" style="flex-direction:column;align-items:stretch;gap:6px;">
+              <div>
+                <div class="setting-label-title">Winning Link Base URL</div>
+                <div class="setting-label-desc">Opens: [BaseURL][MatchNumber]</div>
+              </div>
+              <input type="text" class="form-input" id="setting-win-url" value="https://skillclash.site/admin2020/matches/member_join_match/" />
+            </div>
+
+            <div class="setting-item">
+              <div>
+                <div class="setting-label-title">Audio & Sound FX</div>
+                <div class="setting-label-desc">Web Audio synthesized haptic beeps on clicks/actions</div>
+              </div>
+              <input type="checkbox" id="setting-sound" checked style="width:20px;height:20px;accent-color:var(--primary-orange);" />
+            </div>
+
+            <div class="setting-item">
+              <div>
+                <div class="setting-label-title">Vibration Feedback</div>
+                <div class="setting-label-desc">Haptic feedback on mobile tap</div>
+              </div>
+              <input type="checkbox" id="setting-haptic" checked style="width:20px;height:20px;accent-color:var(--primary-orange);" />
+            </div>
+          </div>
+        </div>
+
+        <!-- Backup & LocalStorage Management -->
+        <div class="card">
+          <div class="card-title">LocalStorage Backup & Restore</div>
+          <div style="display:flex;flex-direction:column;gap:10px;">
+            <button class="btn-primary" id="btn-export-json">Export Backup (JSON)</button>
+            <label class="btn-secondary" style="text-align:center;cursor:pointer;display:block;">
+              Import Backup (JSON)
+              <input type="file" id="input-import-json" accept=".json" style="display:none;" />
+            </label>
+            <button class="btn-secondary" id="btn-reset-data" style="color:#F87171;border-color:rgba(239,68,68,0.3);">
+              Reset All Data to Defaults
+            </button>
+          </div>
+        </div>
+      </section>
+
+    </div>
+
+    <!-- Floating Toast Notification Container -->
+    <div id="toast-container"></div>
+
+    <script type="module" src="/src/app.js"></script>
+  </body>
+</html>
