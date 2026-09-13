@@ -1,0 +1,15 @@
+import { initializeApp } from "firebase/app";
+import { getFirestore } from "firebase/firestore";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyDg7J7V4wf37DG7s1acRfhqwDW0CbZwYXM",
+  authDomain: "kaify-39fea.firebaseapp.com",
+  projectId: "kaify-39fea",
+  storageBucket: "kaify-39feastorage.app",
+  messagingSenderId: "615735149262",
+  appId: "1:615735149262:web:25038d913235fdc978469f",
+  measurementId: "G-0624DWB1JN"
+};
+
+const app = initializeApp(firebaseConfig);
+export const db = getFirestore(app);

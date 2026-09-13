@@ -1,3 +1,5 @@
+import { db } from "./firebase";
+import { collection, addDoc } from "firebase/firestore";
 // Free Fire Hosting Dashboard - Pure Vanilla JS Application
 (function() {
   'use strict';
@@ -99,15 +101,18 @@
     }
   }
 
-  function saveState() {
-    try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
-    } catch (e) {
-      console.error('Failed to save state to localStorage:', e);
-    }
+function saveState() {
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    
+    // Firebase me data save karne ke liye:
+    setDoc(doc(db, "dashboard", "mainData"), state)
+      .catch(err => console.error("Firebase save error:", err));
+      
+  } catch (e) {
+    console.error('Failed to save state to localstorage:', e);
   }
-
-  function showToast(message, type = 'orange') {
+}  function showToast(message, type = 'orange') {
     const container = document.getElementById('toast-container');
     if (!container) return;
     const toast = document.createElement('div');
